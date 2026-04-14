@@ -1,10 +1,10 @@
 <div align="center">
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/DonutMe/.github/main/assets/banner.svg" />
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/DonutMe/.github/main/assets/banner.svg" />
-  <img alt="Donut Me — Crypto Payment Infrastructure for the Next Web" src="https://raw.githubusercontent.com/DonutMe/.github/main/assets/banner.svg" width="100%" />
-</picture>
+<img src="../assets/banner.svg" alt="Donut Me — Crypto Payment Infrastructure for the Next Web" width="100%" />
+
+<br />
+
+<img src="../assets/logo.png" alt="Donut Me Logo" width="80" />
 
 <br />
 
@@ -35,71 +35,6 @@ We believe Web3 payments shouldn't be complicated. Whether it's subscriptions, o
 | Opaque transaction fees | **On-chain transparent fee splitting** — smart contract auto-splits, fees publicly verifiable |
 | Broken payment experience | **Checkout Link** — one link from wallet connection to payment completion |
 | Lack of operational data | **Real-time Dashboard** — transactions, customers, and revenue visualized instantly |
-
-## Architecture
-
-```
-┌──────────────────────────────────────────────────────┐
-│                    Donut Me Platform                  │
-├─────────────────┬──────────────────┬─────────────────┤
-│   Frontend Core │  Backend Core    │ Contract Core   │
-│                 │                  │                 │
-│  Next.js 16     │  NestJS 11       │ Solidity 0.8    │
-│  React 19       │  PostgreSQL      │ OpenZeppelin v5 │
-│  RainbowKit     │  BullMQ + Redis  │ Hardhat 3       │
-│  wagmi + viem   │  Socket.IO       │ Multi-chain     │
-│  shadcn/ui      │  better-auth     │ ERC-20 Router   │
-│  TanStack Query │  Prometheus      │ SafeERC20       │
-└─────────────────┴──────────────────┴─────────────────┘
-         │                  │                 │
-         └──────────────────┴─────────────────┘
-                          │
-              ┌───────────┴───────────┐
-              │  Supported Chains     │
-              │  Ethereum · Polygon   │
-              │  Arbitrum · Base      │
-              │  BSC                  │
-              └───────────────────────┘
-```
-
-## Repositories
-
-| Repo | Description | Stack |
-| --- | --- | --- |
-| **DonutMe-Frontend-Core** | Payment platform frontend — Checkout, Dashboard, Docs | Next.js 16 · React 19 · Tailwind v4 · shadcn/ui |
-| **DonutMe-Backend-Core** | Core API service — Auth, transaction processing, notifications | NestJS 11 · PostgreSQL · Redis · BullMQ |
-| **DonutMe-Contract-Core** | On-chain payment contracts — ERC-20 router, auto fee splitting | Solidity 0.8.24 · OpenZeppelin · Hardhat 3 |
-
-## Payment Flow
-
-```
- Developer                    Payer                     Smart Contract
-    │                           │                            │
-    │  1. Create Checkout       │                            │
-    │     Session (API)         │                            │
-    │──────────────────►        │                            │
-    │                           │                            │
-    │  2. Share Payment Link    │                            │
-    │──────────────────────────►│                            │
-    │                           │                            │
-    │                           │ 3. Connect Wallet          │
-    │                           │    & Approve ERC-20        │
-    │                           │───────────────────────────►│
-    │                           │                            │
-    │                           │ 4. pay(session, token,     │
-    │                           │    amount, merchant)       │
-    │                           │───────────────────────────►│
-    │                           │                            │
-    │                           │         5. Auto Split      │
-    │                           │    ┌──────────────────────►│ → Merchant
-    │                           │    │     (amount - fee)    │
-    │                           │    │                       │ → Treasury
-    │                           │    │       (fee)           │
-    │                           │                            │
-    │  6. Webhook / Real-time   │                            │
-    │◄──────────────────────────│                            │
-    │     Payment Confirmed ✓   │                            │
-```
 
 ## Quick Start
 
@@ -150,16 +85,6 @@ That's it. Your customer clicks the link, connects their wallet, and pays — th
 - 🌐 **i18n** — English / Traditional Chinese bilingual support
 - 🛡️ **On-chain Security** — ReentrancyGuard, Pausable, two-step ownership transfer
 
-## Tech Stack
-
-**Frontend:** Next.js 16 · React 19 · TypeScript · Tailwind CSS v4 · shadcn/ui · wagmi · viem · RainbowKit · Zustand · TanStack Query · Recharts
-
-**Backend:** NestJS 11 · Fastify · TypeORM · PostgreSQL · Redis · BullMQ · Socket.IO · Pino · Prometheus · better-auth
-
-**Smart Contract:** Solidity 0.8.24 · Hardhat 3 · OpenZeppelin v5 · TypeChain · ethers.js v6
-
-**DevOps & QA:** Docker · Vitest · Playwright · Jest · ESLint · Prettier · Solhint
-
 ## Security & Audit
 
 Security is at the core of everything we build. Our smart contracts follow industry best practices:
@@ -175,34 +100,6 @@ Security is at the core of everything we build. Our smart contracts follow indus
 | **Session Replay Protection** | Each payment is tagged with a unique session ID to prevent double-spending |
 
 > 🔍 **Third-party audit** is planned for an upcoming milestone. Stay tuned for the full audit report.
-
-## Roadmap
-
-```
-  2026
-  ─────────────────────────────────────────────────────────────
-
-  Q2                    Q3                    Q4
-  ┃                     ┃                     ┃
-  ▼                     ▼                     ▼
-
-  ✅ Multi-chain         🔲 Developer SDK      🔲 Fiat On-ramp
-     Contract v1.3          (npm package)         Integration
-
-  ✅ Dashboard &         🔲 Webhook System     🔲 Subscription &
-     Checkout MVP            v2 + Retry            Recurring Pay
-
-  ✅ Passkey &           🔲 Solana & TON       🔲 Mobile SDK
-     2FA Auth                Chain Support          (React Native)
-
-  🔲 Public Testnet      🔲 Third-party        🔲 Plugin System
-     Launch                  Security Audit         & Marketplace
-
-  🔲 REST API &          🔲 Payment Widget     🔲 DAO Governance
-     API Key System          (Embeddable)           Module
-```
-
-> ✅ Completed &nbsp;&nbsp; 🔲 Planned
 
 ## Get Involved
 
